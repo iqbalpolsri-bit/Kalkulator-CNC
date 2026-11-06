@@ -3,113 +3,250 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalkulator CNC</title>
-
+<title>Overtime Management System</title>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-
-.container {
-    background: #ffffff;
-    color: black;
-    border-radius: 15px;
-    padding: 20px;
-    max-width: 400px;
-    margin: auto;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-h1 {
-    margin-bottom: 10px;
-    color: #2a5298;
-}
-
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-button {
-    background: #2a5298;
-    color: white;
-    border: none;
-    padding: 12px;
-    width: 95%;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #1e3c72;
-}
-
-.result {
-    margin-top: 15px;
-    padding: 10px;
-    background: #f0f8ff;
-    border-radius: 10px;
-}
-
-.footer {
-    margin-top: 20px;
-    font-size: 12px;
-    opacity: 0.8;
-}
+:root{--navy:#10243a;--blue:#1769aa;--cyan:#20b8c5;--bg:#f2f6fa;--ink:#1c2b3a;--muted:#6b7c8f;--line:#dce5ed;--green:#16845b;--orange:#d97706}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+header{background:linear-gradient(120deg,#10243a,#174e75 70%,#167b89);color:#fff;padding:28px max(20px,calc((100% - 1200px)/2));}
+.brand{font-size:12px;letter-spacing:2px;color:#a9dce7;font-weight:bold}.title{font-size:clamp(23px,4vw,34px);font-weight:800;margin:8px 0}.subtitle{color:#d7e6f0;font-size:14px}
+.wrap{max-width:1200px;margin:24px auto;padding:0 18px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 5px 18px #16324a0a}
+h2{font-size:17px;margin:0 0 14px;color:var(--navy)}.muted{color:var(--muted);font-size:13px;line-height:1.55}
+.upload{border:2px dashed #9bb8cb;border-radius:12px;padding:24px;text-align:center;background:#f8fbfd}
+input[type=file]{max-width:100%;margin:12px 0}.btn{border:0;border-radius:9px;padding:11px 16px;font-weight:bold;cursor:pointer;background:var(--blue);color:#fff;margin:4px}.btn.secondary{background:#e8f1f7;color:#17496b}.btn.green{background:var(--green)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.stat{padding:16px;border-radius:11px;background:#f2f7fb;border:1px solid var(--line)}.stat small{color:var(--muted)}.stat strong{display:block;font-size:24px;margin-top:6px;color:var(--navy)}
+.rules{display:flex;flex-wrap:wrap;gap:10px}.rule{background:#f0f7fb;border-left:4px solid var(--cyan);padding:11px 14px;border-radius:7px;font-size:13px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tab{padding:9px 14px;border:1px solid var(--line);background:#f7fafc;border-radius:8px;cursor:pointer;font-weight:bold;color:#345}.tab.active{background:var(--navy);color:#fff}
+.tablebox{overflow:auto;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;min-width:720px;font-size:13px}th{background:#eaf1f6;color:#24435b;text-align:left;position:sticky;top:0}th,td{padding:10px 11px;border-bottom:1px solid #e7edf2;white-space:nowrap}tr:last-child td{border-bottom:0}td.num{text-align:right;font-variant-numeric:tabular-nums}.pill{padding:4px 8px;border-radius:20px;background:#e7f5f3;color:#08766b;font-size:11px;font-weight:bold}.warning{background:#fff7e8;border:1px solid #f1d39a;padding:12px;border-radius:9px;color:#80520b;font-size:13px;margin-top:12px}
+.hidden{display:none!important}.status{font-size:13px;margin-top:10px;color:var(--muted)}footer{text-align:center;color:#8191a0;font-size:12px;padding:20px}
+@media(max-width:600px){header{padding:22px 18px}.card{padding:15px}.wrap{margin:15px auto}}
 </style>
-
 </head>
 <body>
-
-<h2>🔧 Smart CNC Calculator</h2>
-
-<div class="container">
-    <h1>Kalkulator CNC</h1>
-
-    <input type="number" id="diameter" placeholder="Diameter Tool (mm)">
-    <input type="number" id="vc" placeholder="Cutting Speed Vc (m/min)">
-    <input type="number" id="fz" placeholder="Feed per Tooth fz (mm)">
-    <input type="number" id="z" placeholder="Jumlah Mata Pahat (z)">
-
-    <button onclick="hitung()">Hitung</button>
-
-    <div class="result">
-        <p>Spindle Speed: <b id="spindle">-</b> rpm</p>
-        <p>Feed Rate: <b id="feed">-</b> mm/min</p>
-    </div>
+<header><div class="brand">ADMINISTRASI • REKAPITULASI ABSENSI</div><div class="title">OVERTIME MANAGEMENT SYSTEM</div><div class="subtitle">Pengolahan otomatis lembur harian, mingguan, dan bulanan</div></header>
+<main class="wrap">
+<section class="card">
+<h2>1. Unggah RAW ABSENSI</h2>
+<div class="upload">
+<div style="font-size:32px">📄</div><b>Pilih file absensi</b>
+<div class="muted">Format yang didukung: PDF seperti contoh KJP2, Excel (.xlsx/.xls), atau CSV.</div>
+<input id="fileInput" type="file" accept=".pdf,.xlsx,.xls,.csv">
+<br><button class="btn" id="processBtn">PROSES DATA ABSENSI</button>
+<div class="status" id="fileStatus">Belum ada file dipilih.</div>
 </div>
-
-<div class="footer">
-    Smart Laboratory CNC System
+<div class="warning"><b>Catatan pembacaan:</b> File contoh yang Anda kirim memiliki kolom No. Akun, Nama, Tanggal, Masuk, dan Keluar. Tanggal digunakan untuk menentukan hari secara otomatis. Baris tanpa jam masuk atau jam keluar tidak dihitung sebagai kehadiran lembur.</div>
+</section>
+<section class="card">
+<h2>2. Aturan perhitungan</h2>
+<div class="rules">
+<div class="rule"><b>Senin–Jumat</b><br>Rentang lembur 18.30–21.10</div>
+<div class="rule"><b>Sabtu</b><br>Rentang lembur 07.00–14.00</div>
+<div class="rule"><b>Minggu</b><br>Tidak dihitung</div>
 </div>
+<p class="muted">Jam yang dihitung adalah irisan antara jam absensi aktual dan rentang lembur yang ditetapkan. Contoh Sabtu masuk 08.00 dan pulang 16.00 = 6 jam (08.00–14.00). Masuk sebelum batas awal tetap dimulai dari batas awal; pulang melewati batas akhir tetap dibatasi pada batas akhir.</p>
+</section>
+<section id="results" class="hidden">
+<div class="card">
+<h2>3. Ringkasan hasil</h2>
+<div class="grid">
+<div class="stat"><small>Jumlah pegawai</small><strong id="statPeople">0</strong></div>
+<div class="stat"><small>Hari absensi terbaca</small><strong id="statRows">0</strong></div>
+<div class="stat"><small>Total jam lembur</small><strong id="statHours">0j</strong></div>
+<div class="stat"><small>Periode data</small><strong id="statPeriod" style="font-size:17px">-</strong></div>
+</div>
+<div style="margin-top:14px"><button class="btn green" id="excelBtn">⬇ DOWNLOAD EXCEL</button><button class="btn" id="pdfBtn">⬇ DOWNLOAD PDF</button></div>
+</div>
+<div class="card">
+<h2>4. Hasil rekapitulasi</h2>
+<div class="tabs">
+<button class="tab active" data-tab="daily">Rekap Harian</button>
+<button class="tab" data-tab="weekly">Rekap Mingguan</button>
+<button class="tab" data-tab="monthly">Rekap Bulanan</button>
+</div>
+<div id="daily" class="tabpane"><div class="tablebox"><table id="dailyTable"></table></div></div>
+<div id="weekly" class="tabpane hidden"><div class="tablebox"><table id="weeklyTable"></table></div></div>
+<div id="monthly" class="tabpane hidden"><div class="tablebox"><table id="monthlyTable"></table></div></div>
+<p class="muted" id="rowNote"></p>
+</div>
+</section>
+</main>
+<footer>Overtime Management System • Pemrosesan dilakukan di browser perangkat Anda.</footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script>
-function hitung() {
-    let D = parseFloat(document.getElementById("diameter").value);
-    let Vc = parseFloat(document.getElementById("vc").value);
-    let fz = parseFloat(document.getElementById("fz").value);
-    let z = parseFloat(document.getElementById("z").value);
-
-    if (!D || !Vc || !fz || !z) {
-        alert("Isi semua data terlebih dahulu!");
-        return;
-    }
-
-    let n = (1000 * Vc) / (Math.PI * D);
-    let F = fz * z * n;
-
-    document.getElementById("spindle").innerText = n.toFixed(0);
-    document.getElementById("feed").innerText = F.toFixed(0);
+if(window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+let sourceRows=[], rawRows=[], daily=[], weekly=[], monthly=[], periodLabel="", sourceName="";
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,"0");
+function parseDate(v){
+ if(v instanceof Date && !isNaN(v)) return new Date(v.getFullYear(),v.getMonth(),v.getDate());
+ if(typeof v==="number" && window.XLSX){const d=XLSX.SSF.parse_date_code(v);if(d)return new Date(d.y,d.m-1,d.d);}
+ const s=String(v??"").trim();
+ let m=s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
+ if(m)return new Date(+m[3],+m[2]-1,+m[1]);
+ m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+ if(m)return new Date(+m[1],+m[2]-1,+m[3]);
+ return null;
 }
+function timeMin(v){
+ if(v==null||v==="")return null;
+ if(typeof v==="number" && v>=0 && v<1)return Math.round(v*1440);
+ const s=String(v).trim();const m=s.match(/(\d{1,2})[:.](\d{2})/);
+ if(!m)return null;const h=+m[1],mi=+m[2];if(h>23||mi>59)return null;return h*60+mi;
+}
+function fmtTime(n){return n==null?"-":pad(Math.floor(n/60))+":"+pad(n%60)}
+function fmtDur(n){if(!n)return "0 jam";return Math.floor(n/60)+"j "+pad(n%60)+"m"}
+function fmtDate(d){return pad(d.getDate())+"/"+pad(d.getMonth()+1)+"/"+d.getFullYear()}
+function dayName(d){return ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"][d.getDay()]}
+function getOverlap(row){
+ const dow=row.date.getDay();let start,end,kind;
+ if(dow>=1&&dow<=5){start=18*60+30;end=21*60+10;kind="Malam";}
+ else if(dow===6){start=7*60;end=14*60;kind="Sabtu";}
+ else return {minutes:0,kind:"Minggu"};
+ if(row.inMin==null||row.outMin==null)return {minutes:0,kind};
+ const a=Math.max(row.inMin,start),b=Math.min(row.outMin,end);
+ return {minutes:Math.max(0,b-a),kind};
+}
+function weekRange(d){
+ const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+ const mon=new Date(x);mon.setDate(x.getDate()-((x.getDay()+6)%7));
+ const sun=new Date(mon);sun.setDate(mon.getDate()+6);
+ return {start:mon,end:sun,key:fmtDate(mon),label:fmtDate(mon)+" – "+fmtDate(sun)};
+}
+function normalize(rows){
+ const clean=[];
+ for(const r of rows){
+  const date=parseDate(r.date);if(!date||!r.name)continue;
+  const inMin=timeMin(r.in),outMin=timeMin(r.out);
+  const row={account:String(r.account??"").trim(),name:String(r.name).trim(),date,inMin,outMin};
+  const calc=getOverlap(row);row.minutes=calc.minutes;row.kind=calc.kind;
+  if(inMin!=null||outMin!=null)clean.push(row);
+ }
+ clean.sort((a,b)=>a.date-b.date||a.name.localeCompare(b.name));
+ return clean;
+}
+function aggregate(){
+ const peopleNames=[...new Set(rawRows.map(r=>String(r.name||"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+ const dates=rawRows.map(r=>parseDate(r.date)).filter(Boolean).sort((a,b)=>a-b);
+ daily=sourceRows.map(r=>({...r,day:dayName(r.date),dateText:fmtDate(r.date)}));
+ const weeksMap=new Map(),monthsMap=new Map();
+ for(const d of dates){const w=weekRange(d);weeksMap.set(w.key,w);monthsMap.set(d.getFullYear()+"-"+pad(d.getMonth()+1),d.getFullYear()+"-"+pad(d.getMonth()+1));}
+ const weeklyTotals=new Map(),monthlyTotals=new Map(),monthlyDays=new Map();
+ for(const r of sourceRows){
+  const w=weekRange(r.date),wk=w.key+"|"+r.name;
+  weeklyTotals.set(wk,(weeklyTotals.get(wk)||0)+r.minutes);
+  const mk=r.date.getFullYear()+"-"+pad(r.date.getMonth()+1)+"|"+r.name;
+  monthlyTotals.set(mk,(monthlyTotals.get(mk)||0)+r.minutes);
+  if(r.minutes>0)monthlyDays.set(mk,(monthlyDays.get(mk)||0)+1);
+ }
+ weekly=[];
+ for(const w of [...weeksMap.values()].sort((a,b)=>a.start-b.start)){
+  for(const name of peopleNames)weekly.push({name,range:w.label,start:w.start,minutes:weeklyTotals.get(w.key+"|"+name)||0});
+ }
+ monthly=[];
+ for(const month of [...monthsMap.keys()].sort()){
+  for(const name of peopleNames){const key=month+"|"+name;monthly.push({name,month,minutes:monthlyTotals.get(key)||0,days:monthlyDays.get(key)||0});}
+ }
+ const totalByName=new Map(peopleNames.map(n=>[n,{name:n,minutes:0,days:0}]));
+ for(const r of sourceRows){const p=totalByName.get(r.name);if(p){p.minutes+=r.minutes;if(r.minutes>0)p.days++;}}
+ const people=[...totalByName.values()];
+ periodLabel=dates.length?`${pad(dates[0].getMonth()+1)}/${dates[0].getFullYear()} – ${pad(dates[dates.length-1].getMonth()+1)}/${dates[dates.length-1].getFullYear()}`:"-";
+ $("statPeople").textContent=peopleNames.length;
+ $("statRows").textContent=sourceRows.length;
+ $("statHours").textContent=fmtDur(sourceRows.reduce((s,r)=>s+r.minutes,0));
+ $("statPeriod").textContent=periodLabel;
+ renderTables(people);
+}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function makeTable(el,headers,rows){
+ el.innerHTML="<thead><tr>"+headers.map(h=>"<th>"+h+"</th>").join("")+"</tr></thead><tbody>"+
+ (rows.length?rows.map(row=>"<tr>"+row.map((v,i)=>`<td class="${i===row.length-1?"num":""}">${v}</td>`).join("")+"</tr>").join(""):`<tr><td colspan="${headers.length}">Tidak ada data.</td></tr>`)+"</tbody>";
+}
+function renderTables(people){
+ makeTable($("dailyTable"),["Tanggal","Hari","No. Akun","Nama Pegawai","Jenis","Masuk","Keluar","Lembur"],daily.map(r=>[r.dateText,r.day,esc(r.account),esc(r.name),r.kind,fmtTime(r.inMin),fmtTime(r.outMin),fmtDur(r.minutes)]));
+ makeTable($("weeklyTable"),["Periode Minggu (Senin–Minggu)","Nama Pegawai","Total Lembur"],weekly.map(r=>[r.range,esc(r.name),fmtDur(r.minutes)]));
+ makeTable($("monthlyTable"),["Bulan","No.","Nama Pegawai","Hari Lembur","Total Lembur"],monthly.map((p,i)=>[p.month,i+1,esc(p.name),p.days,fmtDur(p.minutes)]));
+ $("rowNote").textContent=`Ditampilkan ${daily.length} baris yang memiliki setidaknya satu jam masuk/keluar. Baris tanpa jam tetap masuk dalam daftar pegawai dan rekap total dengan nilai 0.`;
+}
+async function readPDF(file){
+ if(!window.pdfjsLib)throw new Error("Pustaka pembaca PDF belum termuat. Periksa koneksi internet lalu muat ulang halaman.");
+ const buf=await file.arrayBuffer(),pdf=await pdfjsLib.getDocument({data:buf}).promise,rows=[];
+ for(let p=1;p<=pdf.numPages;p++){
+  const page=await pdf.getPage(p),content=await page.getTextContent(),lines=new Map();
+  for(const it of content.items){
+   if(!it.str||!it.str.trim())continue;
+   const y=Math.round(it.transform[5]/2)*2;
+   if(!lines.has(y))lines.set(y,[]);
+   lines.get(y).push({x:it.transform[4],s:it.str.trim()});
+  }
+  for(const items of lines.values()){
+   items.sort((a,b)=>a.x-b.x);
+   const line=items.map(x=>x.s).join(" ").replace(/\s+/g," ").trim();
+   const m=line.match(/^(\d{4,})\s+(.+?)\s+(\d{1,2}\/\d{1,2}\/\d{4})(?:\s+(\d{1,2}:\d{2})\s+(\d{1,2}:\d{2}))?\s*$/);
+   if(m)rows.push({account:m[1],name:m[2].trim(),date:m[3],in:m[4]||"",out:m[5]||""});
+  }
+ }
+ return rows;
+}
+function headerIndex(headers,tests){return headers.findIndex(h=>tests.some(t=>t.test(String(h||"").toLowerCase().trim())))}
+async function readSheet(file){
+ const data=await file.arrayBuffer(),wb=XLSX.read(data,{type:"array",cellDates:true}),ws=wb.Sheets[wb.SheetNames[0]],arr=XLSX.utils.sheet_to_json(ws,{header:1,defval:""});
+ let hi=arr.findIndex(row=>row.some(c=>/tanggal/i.test(String(c)))&&row.some(c=>/nama/i.test(String(c))));
+ if(hi<0)throw new Error("Header Excel tidak ditemukan. Pastikan ada kolom Nama dan Tanggal.");
+ const h=arr[hi],ix={account:headerIndex(h,[/no\.?\s*akun/,/akun/,/nip/]),name:headerIndex(h,[/nama/]),date:headerIndex(h,[/tanggal/]),in:headerIndex(h,[/^masuk$/,/jam masuk/]),out:headerIndex(h,[/^keluar$/,/jam keluar/])};
+ if(ix.name<0||ix.date<0)throw new Error("Kolom Nama atau Tanggal tidak ditemukan.");
+ return arr.slice(hi+1).map(r=>({account:ix.account>=0?r[ix.account]:"",name:r[ix.name],date:r[ix.date],in:ix.in>=0?r[ix.in]:"",out:ix.out>=0?r[ix.out]:""}));
+}
+async function readCSV(file){
+ const txt=await file.text(),lines=txt.replace(/^\uFEFF/,"").split(/\r?\n/).filter(x=>x.trim());
+ const delim=(lines[0].match(/;/g)||[]).length>(lines[0].match(/,/g)||[]).length?";":",";
+ const parseLine=line=>{const out=[];let cur="",q=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'&&line[i+1]==='"'){cur+='"';i++}else if(c==='"')q=!q;else if(c===delim&&!q){out.push(cur.trim());cur=""}else cur+=c}out.push(cur.trim());return out};
+ const arr=lines.map(parseLine),h=arr[0],ix={account:headerIndex(h,[/no\.?\s*akun/,/akun/,/nip/]),name:headerIndex(h,[/nama/]),date:headerIndex(h,[/tanggal/]),in:headerIndex(h,[/^masuk$/,/jam masuk/]),out:headerIndex(h,[/^keluar$/,/jam keluar/])};
+ if(ix.name<0||ix.date<0)throw new Error("Header CSV harus memiliki kolom Nama dan Tanggal.");
+ return arr.slice(1).map(r=>({account:r[ix.account]||"",name:r[ix.name],date:r[ix.date],in:r[ix.in]||"",out:r[ix.out]||""}));
+}
+$("fileInput").addEventListener("change",e=>{$("fileStatus").textContent=e.target.files[0]?`File dipilih: ${e.target.files[0].name}`:"Belum ada file dipilih.";});
+$("processBtn").addEventListener("click",async()=>{
+ const file=$("fileInput").files[0];if(!file){alert("Pilih file RAW ABSENSI terlebih dahulu.");return}
+ $("processBtn").disabled=true;$("fileStatus").textContent="Sedang membaca dan menghitung data...";
+ try{
+  sourceName=file.name;let raw;
+  const ext=file.name.split(".").pop().toLowerCase();
+  if(ext==="pdf")raw=await readPDF(file);else if(ext==="csv")raw=await readCSV(file);else if(["xlsx","xls"].includes(ext))raw=await readSheet(file);else throw new Error("Format file belum didukung.");
+  rawRows=raw.filter(r=>r.name&&parseDate(r.date));sourceRows=normalize(rawRows);
+  if(!rawRows.length)throw new Error("Tidak ditemukan baris data absensi. Periksa apakah teks PDF dapat dibaca (bukan hasil scan gambar).");
+  aggregate();$("results").classList.remove("hidden");$("fileStatus").textContent=`Berhasil membaca ${sourceRows.length} baris absensi dari ${file.name}.`;
+  $("results").scrollIntoView({behavior:"smooth"});
+ }catch(err){alert(err.message);$("fileStatus").textContent="Gagal memproses file."}
+ finally{$("processBtn").disabled=false}
+});
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{
+ document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));
+ document.querySelectorAll(".tabpane").forEach(x=>x.classList.toggle("hidden",x.id!==b.dataset.tab));
+}));
+function excelExport(){
+ const wb=XLSX.utils.book_new();
+ const add=(name,headers,rows)=>{const ws=XLSX.utils.aoa_to_sheet([headers,...rows]);ws["!cols"]=headers.map(()=>({wch:22}));XLSX.utils.book_append_sheet(wb,ws,name)};
+ add("Rekap Harian",["Tanggal","Hari","No. Akun","Nama Pegawai","Jenis Lembur","Masuk Aktual","Keluar Aktual","Total Lembur (menit)","Total Lembur"],daily.map(r=>[fmtDate(r.date),r.day,r.account,r.name,r.kind,fmtTime(r.inMin),fmtTime(r.outMin),r.minutes,fmtDur(r.minutes)]));
+ add("Rekap Mingguan",["Periode Minggu","Nama Pegawai","Total Lembur (menit)","Total Lembur"],weekly.map(r=>[r.range,r.name,r.minutes,fmtDur(r.minutes)]));
+ add("Rekap Bulanan",["Periode","Nama Pegawai","Hari Lembur","Total Lembur (menit)","Total Lembur"],monthly.map(r=>[r.month,r.name,r.days,r.minutes,fmtDur(r.minutes)]));
+ XLSX.writeFile(wb,"Rekap_Lembur_"+periodLabel.replace(/[\/\s–]+/g,"_")+".xlsx");
+}
+function pdfExport(){
+ const {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"landscape",unit:"mm",format:"a4"});
+ doc.setFontSize(16);doc.text("REKAPITULASI JAM LEMBUR",14,15);doc.setFontSize(9);doc.text("Sumber: "+sourceName+" | Periode: "+periodLabel,14,21);
+ doc.setFontSize(12);doc.text("A. REKAP HARIAN",14,30);
+ doc.autoTable({startY:34,head:[["Tanggal","Hari","No. Akun","Nama Pegawai","Jenis","Masuk","Keluar","Total Lembur"]],body:daily.map(r=>[fmtDate(r.date),r.day,r.account,r.name,r.kind,fmtTime(r.inMin),fmtTime(r.outMin),fmtDur(r.minutes)]),styles:{fontSize:7,cellPadding:2},headStyles:{fillColor:[23,78,117]}});
+ let y=doc.lastAutoTable.finalY+10;if(y>175){doc.addPage();y=18}
+ doc.setFontSize(12);doc.text("B. REKAP MINGGUAN",14,y);
+ doc.autoTable({startY:y+4,head:[["Periode Minggu (Senin–Minggu)","Nama Pegawai","Total Lembur"]],body:weekly.map(r=>[r.range,r.name,fmtDur(r.minutes)]),styles:{fontSize:8,cellPadding:2},headStyles:{fillColor:[23,78,117]}});
+ y=doc.lastAutoTable.finalY+10;if(y>175){doc.addPage();y=18}
+ doc.setFontSize(12);doc.text("C. REKAP BULANAN",14,y);
+ doc.autoTable({startY:y+4,head:[["Bulan","Nama Pegawai","Hari Lembur","Total Lembur"]],body:monthly.map(r=>[r.month,r.name,r.days,fmtDur(r.minutes)]),styles:{fontSize:8,cellPadding:2},headStyles:{fillColor:[23,78,117]}});
+ doc.save("Rekap_Lembur_"+periodLabel.replace(/[\/\s–]+/g,"_")+".pdf");
+}
+$("excelBtn").addEventListener("click",excelExport);$("pdfBtn").addEventListener("click",pdfExport);
 </script>
-
-</body>
-</html>
+</body></html>
